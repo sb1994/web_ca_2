@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client": "npm start --prefix client",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server \" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "moment": "^2.20.1",
+    "mongoose": "^5.4.21",
+    "mysql": "^2.15.0",
+    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-react": "^0.78.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "jasmine-node": "^1.14.5",
+    "nodemon": "^1.18.10"
+  }
+}
