@@ -14,7 +14,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Link to="/person">Add Person</Link><br/>
+        <h1>Home</h1>
       </div>
     );
   }

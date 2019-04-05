@@ -11,7 +11,18 @@ router.get('/test', (req, res) => res.json({
   msg: 'User Test Paths Work'
 }));
 
+router.get('/all',(req,res)=>{
+  User
+    .find()
+    .select("-password")
+    .then(users=>{
+      return res.json(users)
 
+    })
+    .catch(err=>{
+      console.log(error);
+    })
+})
 router.post('/register', (req, res) => {
   console.log(req.body);
   const errors = {}

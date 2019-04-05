@@ -27,9 +27,8 @@ class Register extends Component {
     axios
       .post('/api/users/register',newUser)
       .then((res)=>{
-        const {errors} = res
         if(res.errors){
-          this.setState({errors:errors})
+          this.setState({errors:res.errors})
         }else{
           console.log('Registerd successfully');
         }
@@ -40,7 +39,7 @@ class Register extends Component {
 
   }
   render() {
-    const { errors } = this.state;
+    const errors = this.state.errors
     return (
       <div>
         <div className="row">
