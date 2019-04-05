@@ -31,9 +31,7 @@ router.post('/register', (req, res) => {
         profile_pic:"https://ctvalleybrewing.com/wp-content/uploads/2017/04/avatar-placeholder.png",
         password: req.body.password
       });
-      // console.log(newUser);
-      
-
+  
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;

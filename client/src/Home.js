@@ -3,8 +3,6 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { Link } from 'react-router-dom';
-import { debounce } from 'lodash';
-import { Icon, Menu, Table } from 'semantic-ui-react'
 
 class Home extends Component {
   constructor(props) {
@@ -22,12 +20,13 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps(persons) {
-    return {
-        persons: persons.persons,
-        maxPersonsReturned: persons.persons.maxPersonsReturned,
-        totalPersonsCount: persons.persons.totalPersonsCount
-    };
-}
+// function mapStateToProps(persons) {
+//     return {
+//         persons: persons.persons,
+//         maxPersonsReturned: persons.persons.maxPersonsReturned,
+//         totalPersonsCount: persons.persons.totalPersonsCount
+//     };
+// }
 
-export default connect(mapStateToProps, actions)(Home);
+// export default connect(mapStateToProps, actions)(Home);
+export default Home;
