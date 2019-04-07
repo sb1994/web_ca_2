@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const passport = require('passport')
 const server = express();
 const cors = require('cors');
 const path = require('path');
@@ -27,20 +28,24 @@ server.use(bodyParser.json());
 
 mongoose
   .connect(key.MONGO_URI)
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => console.log('Connected'))
   .catch(err => console.log(err));
 
 
-
-
+//tell the server to use passport
 server.options('*', cors());
 
+// server.use(passport.initialize())
 
+
+require('./config/passport')(passport);
 // Use Routes
 server.use('/api/users', users);
 
-
 const port = process.env.PORT || 3030;
+
+
+
 
 server.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));

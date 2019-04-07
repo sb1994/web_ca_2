@@ -10,7 +10,7 @@ class Login extends Component {
       password:''
     }
   }
-  onSubmit = e => {
+  handleSubmit = e => {
     //stops the default behaviour of the 
     e.preventDefault();
 
@@ -24,7 +24,7 @@ class Login extends Component {
     console.log(userData);
   }
 
-  onChange = e => {
+  handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
   render() {
@@ -33,14 +33,14 @@ class Login extends Component {
         <h1>Login Form</h1>
         <div className="row">
           <div className="col-md-12">
-            <form>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="email" className="form-control"/>
+                <input type="text" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange}/>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="text" name="password" id="password" className="form-control"/>
+                <input type="text" name="password" id="password" className="form-control" value={this.state.password} onChange={this.handleChange}/>
               </div>
               <button type="submit" className="btn btn-primary">Submit</button>
             </form>
