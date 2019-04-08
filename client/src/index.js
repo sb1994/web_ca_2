@@ -1,29 +1,55 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import reducers from './reducers';
-import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import jwt_decode from "jwt-decode";
+
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import store from "./store";
+import reducers from "./reducers";
+
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import setUserToken from "./utils/setUserToken";
+
+import { setLoggedUser, logoutCurrentUser } from "./actions/auth";
 
 //react pages
-import Home from './Home';
+import Home from "./Home";
 //auth components
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 //profile components
-import ProfileDetail from './components/profile/ProfileDetail'
-import ProfileEdit from './components/profile/ProfileEdit'
+import ProfileDetail from "./components/profile/ProfileDetail";
+import ProfileEdit from "./components/profile/ProfileEdit";
 //users components
-import UsersList from './components/users/UsersList'
+import UsersList from "./components/users/UsersList";
 
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 
+//check wether the user is logged in and token is present
+// Check for token
+if (localStorage.token) {
+  // Set auth token header auth
+  setUserToken(localStorage.token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.token);
+  // Set user and isAuthenticated
+  store.dispatch(setLoggedUser(decoded));
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutCurrentUser());
+    // // Clear current Profile
+    // store.dispatch(clearCurrentProfile());
+    // Redirect to login
+    window.location.href = "/login";
+  }
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <Router>
       <div className="container">
         <Switch>
@@ -36,6 +62,6 @@ ReactDOM.render(
         </Switch>
       </div>
     </Router>
-  </Provider>, 
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );

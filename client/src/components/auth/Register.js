@@ -1,18 +1,33 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { authRegisterUser } from "../../actions/auth";
 class Register extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state={
-      name:'',
-      email:'',
-      password:'',
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
       errors: {}
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/home");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -22,48 +37,78 @@ class Register extends Component {
     const newUser = {
       name: this.state.name,
       email: this.state.email,
-      password: this.state.password,
+      password: this.state.password
     };
     axios
-      .post('/api/users/register',newUser)
-      .then((res)=>{
-        if(res.errors){
-          this.setState({errors:res.errors})
-        }else{
-          console.log('Registerd successfully');
+      .post("/api/users/register", newUser)
+      .then(res => {
+        if (res.errors) {
+          this.setState({ errors: res.errors });
+        } else {
+          console.log("Registerd successfully");
         }
       })
-      .catch(err=>{
+      .catch(err => {
         console.log(err);
-      })
-
+      });
   }
   render() {
-    const errors = this.state.errors
+    const errors = this.state.errors;
     return (
       <div>
         <div className="row">
           <div className="col-md-6">
-          <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange}/>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
                 <span>{errors.email}</span>
               </div>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
-                <input type="text" name="name" id="name" className="form-control" value={this.state.name} onChange={this.handleChange}/>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="form-control"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="text" name="password" id="password" className="form-control" value={this.state.password} onChange={this.handleChange}/>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  className="form-control"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-export default Register
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { authRegisterUser }
+)(withRouter(Register));

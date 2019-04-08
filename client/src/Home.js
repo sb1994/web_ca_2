@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { map } from 'lodash';
-import { connect } from 'react-redux';
-import * as actions from './actions';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { firstName: '', lastName: '', lastNameSearch: '', currentPage: 1 };
+    this.state = {
+      firstName: "",
+      lastName: "",
+      lastNameSearch: "",
+      currentPage: 1
+    };
   }
 
-  
   render() {
     return (
       <div>

@@ -1,30 +1,38 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { authLoginUser } from "../../actions/auth";
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    //default state 
-    this.state={
-      email:'',
-      password:''
-    }
+    //default state
+    this.state = {
+      email: "",
+      password: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit = e => {
-    //stops the default behaviour of the 
+  handleSubmit(e) {
+    //stops the default behaviour of the
     e.preventDefault();
 
-    //creates a user object that will be 
+    //creates a user object that will be
     //sent to the auth action in
     // the reducer
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(userData);
+    this.props.authLoginUser(userData);
   }
-
-  handleChange = e => {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
   render() {
@@ -33,21 +41,45 @@ class Login extends Component {
         <h1>Login Form</h1>
         <div className="row">
           <div className="col-md-12">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange}/>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="text" name="password" id="password" className="form-control" value={this.state.password} onChange={this.handleChange}/>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  className="form-control"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-export default Login
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { authLoginUser }
+)(Login);
