@@ -29,7 +29,16 @@ class Login extends Component {
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push(`/profile/${this.props.auth.user.id}`);
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push(`/profile/${this.props.auth.user.id}`);
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
     }
   }
   handleChange(e) {

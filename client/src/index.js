@@ -1,18 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import jwt_decode from "jwt-decode";
-
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import store from "./store";
-import reducers from "./reducers";
 
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import setUserToken from "./utils/setUserToken";
 
 import { setLoggedUser, logoutCurrentUser } from "./actions/auth";
 
+//laout components
+import Nav from "./components/layout/Nav";
 //react pages
 import Home from "./Home";
 //auth components
@@ -50,18 +48,21 @@ if (localStorage.token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <div className="container">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/users" component={UsersList} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profile/:id" component={ProfileDetail} />
-          <Route exact path="/profile/edit/:id" component={ProfileEdit} />
-        </Switch>
-      </div>
-    </Router>
+    <div className="App">
+      <Nav />
+      <Router>
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/users" component={UsersList} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile/:id" component={ProfileDetail} />
+            <Route exact path="/profile/edit/:id" component={ProfileEdit} />
+          </Switch>
+        </div>
+      </Router>
+    </div>
   </Provider>,
   document.getElementById("root")
 );
