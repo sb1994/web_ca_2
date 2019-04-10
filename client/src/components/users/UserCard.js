@@ -13,9 +13,9 @@ class UserCard extends Component {
     return (
       <div className="col-md-3 card">
         <Link to={`/profile/${user._id}`}>
-          <img class="card-img-top" src={user.profile_pic} alt="Card image" />
+          <img className="card-img-top" src={user.profile_pic} alt="Card image" />
         </Link>
-        <div class="card-body">
+        <div className="card-body">
           <p>{user.name}</p>
         </div>
       </div>
