@@ -48,21 +48,21 @@ if (localStorage.token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <div className="App">
-      <Nav />
-      <Router>
-        <div className="container">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/users" component={UsersList} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/profile/:id" component={ProfileDetail} />
-            <Route exact path="/profile/edit/:id" component={ProfileEdit} />
-          </Switch>
-        </div>
-      </Router>
-    </div>
+    <Router>
+      <div className="App">
+        <Nav />
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/users" component={UsersList} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/profile/:id" component={ProfileDetail} />
+              <Route exact path="/profile/edit/:id" component={ProfileEdit} />
+            </Switch>
+          </div>
+      </div>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
