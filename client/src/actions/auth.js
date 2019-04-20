@@ -1,7 +1,7 @@
 import axios from "axios";
 import setUserToken from "../utils/setUserToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_LOGGED_USER } from "./types";
+import { GET_ERRORS, SET_LOGGED_USER, CLEAR_CURRENT_USER } from "./types";
 
 export const authRegisterUser = (user, history) => dispatch => {
   axios
@@ -43,12 +43,17 @@ export const setLoggedUser = decoded => {
     payload: decoded
   };
 };
-
+// Clear profile
+export const clearCurrentUser = () => {
+  return {
+    type: CLEAR_CURRENT_USER
+  };
+};
 // Log user out
 export const logoutCurrentUser = () => dispatch => {
   // Remove token from Browser Storage
   localStorage.removeItem("token");
-  // Remove auth header for future requests
+  // Remove auth header for the next set of requests requests
   setUserToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setLoggedUser({}));
