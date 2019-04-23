@@ -16,7 +16,7 @@ class Nav extends Component {
     const loggedInLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/users">
+          <Link className="nav-link" to="/">
           <i className="fas fa-user-friends"></i>
             Users
           </Link>
@@ -28,10 +28,10 @@ class Nav extends Component {
           </a>
         </li>
         <li className="nav-item">
-          <Link className="nav-link"to={`/profile/${user.id}`}>
+          {/* <Link className="nav-link"to={`/profile/${user.id}`}>
           <i className="fas fa-user"></i>
             View Profile
-          </Link>
+          </Link> */}
         </li>
         <li className="nav-item">
           <a
@@ -48,7 +48,7 @@ class Nav extends Component {
     const loggedOutLinks = (
       <ul className="navbar-nav ml-auto">
       <li className="nav-item">
-          <Link className="nav-link" to="/users">
+          <Link className="nav-link" to="/">
           <i className="fas fa-user-friends"></i>
             Users
           </Link>

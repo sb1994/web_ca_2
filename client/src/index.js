@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import jwt_decode from 'jwt-decode';
 import { Provider } from "react-redux";
 import store from "./store";
-
+import { createBrowserHistory } from "history";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import setUserToken from "./utils/setUserToken";
 
@@ -53,8 +53,7 @@ ReactDOM.render(
         <Nav />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/users" component={UsersList} />
+              <Route exact path="/" component={UsersList} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile/:id" component={ProfileDetail} />

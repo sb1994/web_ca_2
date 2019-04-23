@@ -1,7 +1,7 @@
 import axios from "axios";
 import setUserToken from "../utils/setUserToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_LOGGED_USER, CLEAR_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_LOGGED_USER, CLEAR_CURRENT_USER,DELETE_CURRENT_USER } from "./types";
 
 export const authRegisterUser = (user, history) => dispatch => {
   axios
@@ -49,6 +49,14 @@ export const clearCurrentUser = () => {
     type: CLEAR_CURRENT_USER
   };
 };
+// delete current user
+export const authDeleteUser = id => {
+  return{
+    type:DELETE_CURRENT_USER,
+    payload:id
+  }
+};
+
 // Log user out
 export const logoutCurrentUser = () => dispatch => {
   // Remove token from Browser Storage

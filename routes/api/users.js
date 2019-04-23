@@ -23,6 +23,30 @@ router.get("/all", (req, res) => {
       console.log(error);
     });
 });
+router.get("/:id", (req, res) => {
+  User.findOne({
+    _id: req.params.id
+  })
+  .select("-password")
+  .then(user => {
+    if (user) {
+      return res.status(200).json({ user: user });
+    } 
+  });
+});
+router.delete("/:id", (req, res) => {
+  console.log(req.params.id);
+  
+  // User.findOne({
+  //   _id: req.params.id
+  // })
+  // .select("-password")
+  // .then(user => {
+  //   if (user) {
+  //     return res.status(200).json({ user: user });
+  //   } 
+  // });
+});
 router.post("/register", (req, res) => {
   console.log(req.body);
   const errors = {};

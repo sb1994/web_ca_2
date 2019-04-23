@@ -1,25 +1,65 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import { connect } from 'react-redux';
+import moment from 'moment'
+import { authDeleteUser } from "../../actions/auth";
 class ProfileThumbnail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user
-    };
+  constructor(props){
+    super(props)
+
+    this.state={
+      deleted:false
+    }
+    this.onHandleEditClick = this.onHandleEditClick.bind(this);
+    this.onHandleDeleteClick = this.onHandleDeleteClick.bind(this);
+  }
+  onHandleEditClick=(e)=>{
+    this.props.history.push(`/profile/${this.props.auth.user.id}`);
+    // window.location('/');
+    
+    
+  }
+  onHandleDeleteClick=()=>{
+    this.props.authDeleteUser(this.props.auth.user.id)
+    
   }
   render() {
-    const { user } = this.state;
+    //user from the redux object 
+    const { isAuthenticated,user } = this.props.auth;
+    //user passed from the props
+    const propsUser = this.props.user
+    //formats the date
+    const date = moment(propsUser.joined).format('YYYY');
+
+
     return (
       <div className="col-md-3 card">
-        <Link to={`/profile/${user.id}`}>
-          <img className="card-img-top" src={user.profile_pic} alt="Card image" />
+        <Link to={`/profile/${propsUser._id}`}>
+          <img className="card-img-top" src={propsUser.profile_pic} alt="Card image" />
         </Link>
         <div className="card-body">
-          <p>{user.name}</p>
+          <h4 className="card-title">{propsUser.name}</h4>
+          <p className="text-muted">Joined: <span>{date}</span></p>
+          <p className="text-muted">Email: <span>{propsUser.email}</span></p>
+          {
+            //checks wheter the user is authenticted and wether they can update the profie , or delete the profile
+           isAuthenticated && propsUser._id === user.id ?
+           (
+             <div>
+                <Link className="btn" to={`/profile/edit/${user.id}`}><span className="far fa-edit"></span></Link>
+                <button className="fas fa-trash" onClick={this.onHandleDeleteClick}></button>
+             </div>
+           )
+           :
+           ""
+          }
         </div>
       </div>
     );
   }
 }
-export default ProfileThumbnail;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps,{authDeleteUser})(ProfileThumbnail);
