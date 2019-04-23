@@ -3,6 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { authRegisterUser } from "../../actions/auth";
+import { log } from "core-js";
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +19,7 @@ class Register extends Component {
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/home");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.props.history.push("/login");
     }
   }
 
@@ -45,7 +40,7 @@ class Register extends Component {
         if (res.errors) {
           this.setState({ errors: res.errors });
         } else {
-          console.log("Registerd successfully");
+          this.props.history.push("/login");
         }
       })
       .catch(err => {

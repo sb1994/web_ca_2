@@ -20,8 +20,8 @@ export default function(state = initialState, action) {
     case DELETE_CURRENT_USER:
       return {
         ...state,
-        isAuthenticated: !isEmpty(action.payload),
-      }
+        isAuthenticated: false
+      };
     default:
       return state;
   }

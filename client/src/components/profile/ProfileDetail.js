@@ -1,36 +1,37 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ProfileThumbnail from "./ProfileThumbnail";
 class ProfileDetail extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state={
-      user:{}
-    }
+    this.state = {
+      user: {}
+    };
   }
-  componentDidMount(){
+  componentDidMount() {
     // console.log(this.props.match.params.id);
     axios
       .get(`/api/users/${this.props.match.params.id}`)
-      .then(res=>{
+      .then(res => {
         this.setState({
-          user:res.data.user
-        })
+          user: res.data.user
+        });
       })
-      .catch(err=>{
+      .catch(err => {
         console.log(err);
-      })
+      });
   }
   render() {
-    const user = this.state.user
+    const user = this.state.user;
     return (
       <div className="row">
-        <ProfileThumbnail user={user}/>    
+        {/* pass the history object in so that the child compoent can use it */}
+        <ProfileThumbnail user={user} history={this.props.history} />
       </div>
-    )
+    );
   }
 }
 const mapStateToProps = state => ({

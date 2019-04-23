@@ -1,12 +1,23 @@
 import axios from "axios";
 import setUserToken from "../utils/setUserToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_LOGGED_USER, CLEAR_CURRENT_USER,DELETE_CURRENT_USER } from "./types";
+import {
+  REGISTER_SUCCESS,
+  GET_ERRORS,
+  SET_LOGGED_USER,
+  CLEAR_CURRENT_USER,
+  DELETE_CURRENT_USER
+} from "./types";
 
 export const authRegisterUser = (user, history) => dispatch => {
   axios
     .post("/api/users/register", user)
-    .then(res => history.push("/login"))
+    .then(res =>
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      })
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -50,11 +61,13 @@ export const clearCurrentUser = () => {
   };
 };
 // delete current user
-export const authDeleteUser = id => {
-  return{
-    type:DELETE_CURRENT_USER,
-    payload:id
-  }
+export const authDeleteUser = id => dispatch => {
+  axios.delete(`/api/users/${id}`).then(res => {
+    dispatch({
+      type: DELETE_CURRENT_USER,
+      payload: id
+    });
+  });
 };
 
 // Log user out

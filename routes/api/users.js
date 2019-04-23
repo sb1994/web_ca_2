@@ -27,25 +27,28 @@ router.get("/:id", (req, res) => {
   User.findOne({
     _id: req.params.id
   })
-  .select("-password")
-  .then(user => {
-    if (user) {
-      return res.status(200).json({ user: user });
-    } 
-  });
+    .select("-password")
+    .then(user => {
+      if (user) {
+        return res.status(200).json({ user: user });
+      }
+    });
 });
 router.delete("/:id", (req, res) => {
   console.log(req.params.id);
-  
-  // User.findOne({
-  //   _id: req.params.id
-  // })
-  // .select("-password")
-  // .then(user => {
-  //   if (user) {
-  //     return res.status(200).json({ user: user });
-  //   } 
-  // });
+
+  User.findById(req.params.id)
+    .then(user =>
+      user.remove().then(() =>
+        res.json({
+          success: true
+        })
+      )
+    )
+    // .then(user => {
+    //   console.log(user);
+    // })
+    .catch(err => res.status(404).json({ success: false }));
 });
 router.post("/register", (req, res) => {
   console.log(req.body);

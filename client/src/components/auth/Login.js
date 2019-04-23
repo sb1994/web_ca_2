@@ -36,7 +36,6 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push(`/profile/${nextProps.auth.user.id}`);
       console.log(nextProps);
-      
     }
 
     if (nextProps.errors) {
@@ -88,7 +87,7 @@ class Login extends Component {
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  user:state.user
+  user: state.user
 });
 
 export default connect(
