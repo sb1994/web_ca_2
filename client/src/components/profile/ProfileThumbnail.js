@@ -37,6 +37,7 @@ class ProfileThumbnail extends Component {
       <div className="col-md-3 card">
         <Link to={`/profile/${propsUser._id}`}>
           <img
+            style={{ height: 275 }}
             className="card-img-top"
             src={propsUser.profile_pic}
             alt="Card image"

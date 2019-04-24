@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ProfileThumbnail from "./ProfileThumbnail";
-import PostFeed from "../post_feed/PostFeed";
+import Posts from "../post_feed/Posts";
 class ProfileDetail extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class ProfileDetail extends Component {
       <div className="row">
         {/* pass the history object in so that the child compoent can use it */}
         <ProfileThumbnail user={user} history={this.props.history} />
-        <PostFeed />
+        <Posts feed_id={this.props.match.params.id} />
       </div>
     );
   }

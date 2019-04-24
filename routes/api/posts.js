@@ -24,7 +24,36 @@ router.get("/:post_feed", (req, res) => {
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: "No posts found" }));
 });
-//creates the new post based on the
+//get ingle post by id
+router.get("/:id", (req, res) => {
+  Post.find({ _id: req.params.id })
+    .then(posts => res.json(post))
+    .catch(err => res.status(404).json({ nopostfound: "No post found" }));
+});
+//delete a post
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOne({ user: req.user.id }).then(user => {
+      Post.findById(req.params.id)
+        .then(post => {
+          // Check for post owner
+          if (post.post_feed.toString() === req.user.id) {
+            // return res
+            //   .status(401)
+            //   .json({ notauthorized: "User not authorized" });
+            post.remove().then(() => res.json({ success: true }));
+          }
+
+          // Delete
+        })
+        .catch(err => res.status(404).json({ postnotfound: "No post found" }));
+    });
+  }
+);
+
+//creates the new post based on the user id passed over via paassport
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),

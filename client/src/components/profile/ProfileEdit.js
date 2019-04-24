@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { log } from "core-js";
 import { authEditUser, getCurrentUser } from "../../actions/auth";
 class ProfileEdit extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import { Provider } from "react-redux";
 import store from "./store";
 import { createBrowserHistory } from "history";
@@ -51,15 +51,15 @@ ReactDOM.render(
     <Router>
       <div className="App">
         <Nav />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={UsersList} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/profile/:id" component={ProfileDetail} />
-              <Route exact path="/profile/edit/:id" component={ProfileEdit} />
-            </Switch>
-          </div>
+        <div className="container p-2">
+          <Switch>
+            <Route exact path="/" component={UsersList} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile/:id" component={ProfileDetail} />
+            <Route exact path="/profile/edit/:id" component={ProfileEdit} />
+          </Switch>
+        </div>
       </div>
     </Router>
   </Provider>,

@@ -16,7 +16,7 @@ export const EDITING_CURRENT_USER = " EDITING_CURRENT_USER";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 //post actions
-export const GET_POST = "GET_POST";
-export const GET_POSTS = "GET_POSTS";
-export const ADD_POST = "ADD_POST";
-export const DELETE_POST = "DELETE_POST";
+export const GET_USER_POST = "GET_USER_POST";
+export const GET_USER_POSTS = "GET_USER_POSTS";
+export const ADD_USER_POST = "ADD_USER_POST";
+export const DELETE_USER_POST = "DELETE_USER_POST";
