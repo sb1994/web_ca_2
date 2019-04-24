@@ -103,7 +103,8 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
-          profile_pic: user.profile_pic
+          profile_pic: user.profile_pic,
+          email: user.email
         }; // Create JWT Payload
 
         // create and siegn the token witht he secret key
@@ -125,5 +126,23 @@ router.post("/login", (req, res) => {
     });
   });
 });
+router.put("/edit/:id", (req, res) => {
+  console.log(req.params.id);
+  let updatedUser = {
+    name: req.body.name,
+    email: req.body.email,
+    profile_pic: req.body.profile_pic
+  };
+  console.log(updatedUser);
 
+  User.findOneAndUpdate({ _id: req.params.id }, updatedUser).then(oldRes => {
+    User.findOne({ _id: req.params.id }).then(newResult => {
+      res.json({
+        success: true,
+        msg: `Successfully updated!`,
+        result: newResult
+      });
+    });
+  });
+});
 module.exports = router;

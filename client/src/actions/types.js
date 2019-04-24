@@ -8,7 +8,15 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const REGISTER_RESET = "REGISTER_RESET";
 export const SET_LOGGED_USER = "SET_LOGGED_USER";
+export const GET_LOGGED_USER = "GET_LOGGED_USER";
 export const DELETE_CURRENT_USER = "DELETE_CURRENT_USER";
 export const CLEAR_CURRENT_USER = " CLEAR_CURRENT_USER";
+export const EDIT_CURRENT_USER = " EDIT_CURRENT_USER";
+export const EDITING_CURRENT_USER = " EDITING_CURRENT_USER";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+//post actions
+export const GET_POST = "GET_POST";
+export const GET_POSTS = "GET_POSTS";
+export const ADD_POST = "ADD_POST";
+export const DELETE_POST = "DELETE_POST";

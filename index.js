@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const key = require("./config/keys");
 //inport the routes for the app
 const users = require("./routes/api/users");
+const posts = require("./routes/api/posts");
 
 require("dotenv").config();
 
@@ -46,6 +47,7 @@ server.use(passport.initialize());
 require("./config/passport")(passport);
 // Use Routes
 server.use("/api/users", users);
+server.use("/api/posts", posts);
 
 const port = process.env.PORT || 3030;
 
