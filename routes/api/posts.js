@@ -40,9 +40,6 @@ router.delete(
         .then(post => {
           // Check for post owner
           if (post.post_feed.toString() === req.user.id) {
-            // return res
-            //   .status(401)
-            //   .json({ notauthorized: "User not authorized" });
             post.remove().then(() => res.json({ success: true }));
           }
 
@@ -58,15 +55,21 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log(req.user.id);
     const newPost = new Post({
       content: req.body.content,
-      name: req.body.name,
+      // name: req.body.name,
       post_feed: req.body.post_feed,
-      profile_pic: req.body.profile_pic,
+      // profile_pic: req.body.profile_pic,
       user: req.user.id
     });
-    // res.json({ post: newPost });
-    newPost.save().then(post => res.json(post));
+    User.findOne({ _id: newPost.user }).then(user => {
+      // console.log(user);
+      newPost.profile_pic = user.profile_pic;
+      newPost.name = user.name;
+      newPost.save().then(post => res.json(post));
+    });
   }
 );
+
 module.exports = router;

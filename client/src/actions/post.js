@@ -42,25 +42,6 @@ export const getUserPosts = post_feed => dispatch => {
       })
     );
 };
-// Get single post by id
-export const getUserPost = id => dispatch => {
-  axios
-    .get(`/api/posts/${id}`)
-    .then(
-      res =>
-        dispatch({
-          type: GET_USER_POST,
-          payload: res.data
-        })
-      // console.log(res.data)
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_USER_POST,
-        payload: null
-      })
-    );
-};
 export const deleteUserPost = id => dispatch => {
   axios
     .delete(`/api/posts/${id}`)

@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // Load User model
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 router.get("/test", (req, res) =>
   res.json({
@@ -133,10 +134,16 @@ router.put("/edit/:id", (req, res) => {
     email: req.body.email,
     profile_pic: req.body.profile_pic
   };
-  console.log(updatedUser);
 
   User.findOneAndUpdate({ _id: req.params.id }, updatedUser).then(oldRes => {
     User.findOne({ _id: req.params.id }).then(newResult => {
+      // console.log(newResult._id);
+      Post.updateMany(
+        { user: newResult._id },
+        { profile_pic: newResult.profile_pic }
+      ).then(posts => {
+        console.log("success");
+      });
       res.json({
         success: true,
         msg: `Successfully updated!`,

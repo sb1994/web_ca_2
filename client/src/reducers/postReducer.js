@@ -2,7 +2,8 @@ import {
   ADD_USER_POST,
   GET_USER_POSTS,
   GET_USER_POST,
-  DELETE_USER_POST
+  DELETE_USER_POST,
+  UPDATE_USER_POSTS
 } from "../actions/types";
 
 const initialState = {

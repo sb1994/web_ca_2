@@ -17,7 +17,7 @@ class Post extends Component {
         <div className="card">
           <div className="card-header">
             {date}
-            {post.user === this.props.auth.user.id ? (
+            {post.post_feed === this.props.auth.user.id ? (
               <button
                 onClick={this.handleDeleteClick.bind(this, post._id)}
                 type="button"
@@ -25,11 +25,13 @@ class Post extends Component {
               >
                 <i className="fas fa-times" />
               </button>
-            ) : null}
+            ) : (
+              <span />
+            )}
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-2 ">
+              <div className="col-md-3 ">
                 <img
                   style={{ height: 75 }}
                   className="rounded"
@@ -38,9 +40,7 @@ class Post extends Component {
                 <p>{post.name}</p>
               </div>
               <div className="col-md-9">
-                <div className="row">
-                  <p className="card-text">{post.content}</p>
-                </div>
+                <p className="card-text">{post.content}</p>
               </div>
             </div>
           </div>

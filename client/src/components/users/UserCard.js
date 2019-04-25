@@ -11,12 +11,19 @@ class UserCard extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="col-md-3 card">
-        <Link to={`/profile/${user._id}`}>
-          <img className="card-img-top" src={user.profile_pic} alt="Card image" />
-        </Link>
-        <div className="card-body">
-          <p>{user.name}</p>
+      <div className="col-md-3">
+        <div className="card">
+          <Link to={`/profile/${user._id}`}>
+            <img
+              style={{ height: 100 }}
+              className="card-img "
+              src={user.profile_pic}
+              alt="Card image"
+            />
+          </Link>
+          <div className="card-body">
+            <p>{user.name}</p>
+          </div>
         </div>
       </div>
     );
